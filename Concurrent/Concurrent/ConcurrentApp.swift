@@ -11,7 +11,7 @@ import SwiftUI
 struct ConcurrentApp: App {
     var body: some Scene {
         WindowGroup {
-            MainActorView()
+            CombineView()
         }
     }
 }
