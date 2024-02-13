@@ -32,8 +32,8 @@ struct DailyScrum: Identifiable {
     }
 }
 
-extension DailyScrum {
-    struct Attendee: Identifiable {
+extension DailyScrum: Codable {
+    struct Attendee: Identifiable, Codable {
         let id: UUID
         var name: String
         
