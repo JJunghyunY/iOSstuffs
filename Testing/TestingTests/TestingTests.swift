@@ -6,24 +6,50 @@
 //
 
 import XCTest
+import CoreData
 @testable import Testing
 
 final class TestingTests: XCTestCase {
+    
+    var persistenceController: PersistenceController!
+    var viewContext: NSManagedObjectContext!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        persistenceController = PersistenceController(inMemory: true)
+        viewContext = persistenceController.container.viewContext
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        persistenceController = nil
+        viewContext = nil
+        super.tearDown()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func testAddItem() throws {
+        let newItem = Item(context: viewContext)
+        newItem.timestamp = Date()
+        try viewContext.save()
+        
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        let results = try viewContext.fetch(fetchRequest)
+        
+        XCTAssertEqual(results.count, 1)
+        XCTAssertEqual(results.first, newItem)
+    }
+    
+    func testDeleteItem() throws {
+        let newItem = Item(context: viewContext)
+        newItem.timestamp = Date()
+        try viewContext.save()
+        
+        viewContext.delete(newItem)
+        try viewContext.save()
+        
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        let results = try viewContext.fetch(fetchRequest)
+        
+        XCTAssertTrue(results.isEmpty)
     }
 
     func testPerformanceExample() throws {
