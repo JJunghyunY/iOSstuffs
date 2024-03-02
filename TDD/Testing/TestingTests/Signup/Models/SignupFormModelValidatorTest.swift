@@ -39,13 +39,13 @@ final class SignupFormModelValidatorTest: XCTestCase {
     }
     
     func testSignupFormModelValidator_WhenEqualPasswordProvided_ShouldReturnTrue() {
-        let doPasswordMatch = sut.doPasswordMatch(password: "1234qwer", repeatPassword: "1234qwer")
+        let doPasswordMatch = sut.doPasswordsMatch(password: "1234qwer", repeatPassword: "1234qwer")
         
         XCTAssertTrue(doPasswordMatch, "doPasswordMatch should return True for matching passwords")
     }
     
     func testSignupFormModelValidator_WhenNotMathingPasswordProvided_ShouldReturnFalse() {
-        let doPasswordMatch = sut.doPasswordMatch(password: "qwer1234", repeatPassword: "1234qwer")
+        let doPasswordMatch = sut.doPasswordsMatch(password: "qwer1234", repeatPassword: "1234qwer")
         
         XCTAssertFalse(doPasswordMatch, "doPasswordMatch should return False for not-matched passwords")
     }
