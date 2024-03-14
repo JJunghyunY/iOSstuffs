@@ -10,7 +10,7 @@ import XCTest
 
 final class SignupPresenterTests: XCTestCase {
     var signupFormModel: SignupFormModel!
-    var mockSignupModelValidator: MockSignupModeValidator!
+    var mockSignupModelValidator: MockSignupModelValidator!
     var mockSignupWebService: MockSignupWebservice!
     var sut: SignupPresenter!
     var mockSignupViewDelegate: MockSignupViewDelegate!
@@ -21,7 +21,7 @@ final class SignupPresenterTests: XCTestCase {
                                           email: "test@test.com",
                                           password: "12345",
                                           repeatPassword: "12345")
-        mockSignupModelValidator = MockSignupModeValidator()
+        mockSignupModelValidator = MockSignupModelValidator()
         mockSignupWebService = MockSignupWebservice()
         mockSignupViewDelegate = MockSignupViewDelegate()
         sut = SignupPresenter(formModelValidator: mockSignupModelValidator,

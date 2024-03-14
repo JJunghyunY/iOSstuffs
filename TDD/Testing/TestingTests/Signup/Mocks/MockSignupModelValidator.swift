@@ -8,7 +8,7 @@
 import Foundation
 @testable import Testing
 
-final class MockSignupModeValidator: SignupModelValidatorProtocol {
+final class MockSignupModelValidator: SignupModelValidatorProtocol {
     
     var isfirstNameValidated: Bool = false
     var isLastNAmeValidated: Bool = false
