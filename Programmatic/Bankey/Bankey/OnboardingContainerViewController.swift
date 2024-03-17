@@ -123,6 +123,16 @@ extension OnboardingContainerViewController: UIPageViewControllerDataSource {
 
 // MARK: - Actions
 extension OnboardingContainerViewController {
+    @objc func nextTapped(_ sender: UIButton) {
+        guard let nextVC = getNextViewController(from: currentVC) else { return }
+        pageViewController.setViewControllers([nextVC], direction: .forward, animated: true, completion: nil)
+    }
+    
+    @objc func backTapped(_ sender: UIButton) {
+        guard let previousVC = getPreviousViewController(from: currentVC) else { return }
+        pageViewController.setViewControllers([previousVC], direction: .reverse, animated: true, completion: nil)
+    }
+    
     @objc func closeTapped(_ sender: UIButton) {
         delegate?.didFinishOnboarding()
     }

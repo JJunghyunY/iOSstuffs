@@ -8,7 +8,7 @@
 import XCTest
 @testable import Bankey
 
-class Test: XCTestCase {
+class CurrencyFormatterTests: XCTestCase {
     var formatter: CurrencyFormatter!
     
     override func setUp() {

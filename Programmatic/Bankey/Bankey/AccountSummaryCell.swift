@@ -7,16 +7,17 @@
 
 import UIKit
 
+enum AccountType: String, Codable {
+    case Banking
+    case CreditCard
+    case Investment
+}
+
 class AccountSummaryCell: UITableViewCell {
     
-    enum accountType: String {
-        case Banking
-        case CreditCard
-        case Investment
-    }
     
     struct ViewModel {
-        let accountType: accountType
+        let accountType: AccountType
         let accountName: String
         let balance: Decimal
         
@@ -73,6 +74,7 @@ extension AccountSummaryCell {
         
         balanceLabel.translatesAutoresizingMaskIntoConstraints = false
         balanceLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        balanceLabel.adjustsFontForContentSizeCategory = true
         balanceLabel.textAlignment = .right
         balanceLabel.text = "Some balance"
         

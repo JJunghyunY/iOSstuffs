@@ -28,9 +28,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         loginViewController.delegate = self
         onboardingContainerViewContrller.delegate = self
+        
+        registerForNotification()
 
         displayLogin()
         return true
+    }
+    
+    private func registerForNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogout), name: .logout, object: nil)
     }
     
     private func displayLogin() {
@@ -53,6 +59,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate {
+    func setRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        guard animated, let window = self.window else {
+            self.window?.rootViewController = vc
+            self.window?.makeKeyAndVisible()
+            return
+        }
+        
+        window.rootViewController = vc
+        window.makeKeyAndVisible()
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: .transitionCrossDissolve,
+                          animations: nil)
+    }
+}
+
 extension AppDelegate: LoginViewControllerDelegate {
     func didLogin() {
         displayNextScreen()
@@ -68,24 +91,7 @@ extension AppDelegate: OnboardingViewViewControllerDelegate {
 }
 
 extension AppDelegate: LogOutDelegate {
-    func didLogout() {
+    @objc func didLogout() {
         setRootViewController(loginViewController)
-    }
-}
-
-extension AppDelegate {
-    func setRootViewController(_ vc: UIViewController, animated: Bool = true) {
-        guard animated, let window = self.window else {
-            self.window?.rootViewController = vc
-            self.window?.makeKeyAndVisible()
-            return
-        }
-        
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
-        UIView.transition(with: window,
-                          duration: 0.5,
-                          options: .transitionCrossDissolve,
-                          animations: nil)
     }
 }
